@@ -16,11 +16,6 @@
                         class="sr-only">(current)</span></a>
             </li>
         </ul>
-        <!-- <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" name="key" id="searchName" ngModel placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> -->
-
         <form class="form-inline my-2 my-lg-0">
             <input type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"
                 id="searchName" class="form-control mr-sm-2" placeholder="Search employees..." required>
@@ -171,7 +166,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteEmployeeModalLabel"
+<div *ngIf="deleteEmployee" class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteEmployeeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -182,7 +177,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete employee {{deleteEmployee?.name}}</p>
+                <p>Are you sure you want to delete employee {{deleteEmployee.name}}</p>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <button (click)="onDeleteEmployee(deleteEmployee.id)" class="btn btn-danger"
