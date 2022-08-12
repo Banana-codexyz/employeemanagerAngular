@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Employee } from './employee';
 import { EmployeeService } from './employee.service';
@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.getEmployees();
   }
+
+  
 
   public getEmployees(): void {
     this.employeeService.getEmployees().subscribe(
@@ -90,5 +92,21 @@ export class AppComponent implements OnInit {
       }
     );
   }
-  
+
+  public searchEmployees(key: string): void {
+    console.log(key);
+    const results: Employee[] = [];
+    for (const employee of this.employees) {
+      if (employee.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || employee.email.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || employee.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || employee.jobTitle.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        results.push(employee);
+      }
+    }
+    this.employees = results;
+    if (results.length === 0 || !key) {
+      this.getEmployees();
+    }
+  }
 }
